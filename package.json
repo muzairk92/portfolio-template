@@ -1,0 +1,21 @@
+{
+  "name": "portfolio-template",
+  "version": "1.0.0",
+  "description": "Responsive hero experience for Uzair Khan using a lightweight React-style runtime.",
+  "type": "module",
+  "scripts": {
+    "dev": "tsc --watch --preserveWatchOutput",
+    "build": "tsc && node scripts/copy-static.mjs",
+    "preview": "node scripts/preview.mjs"
+  },
+  "keywords": [
+    "portfolio",
+    "react",
+    "typescript",
+    "gsap",
+    "tailwind",
+    "lottie"
+  ],
+  "author": "",
+  "license": "MIT"
+}
