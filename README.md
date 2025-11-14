@@ -1,53 +1,74 @@
-# Uzair Khan Portfolio Hero (React + Vite)
+# Portfolio Hero Section (Next.js 14 + GSAP)
 
-A single-screen portfolio splash inspired by the provided wireframe. This rebuild removes the previous Next.js stack and replaces it with a lightweight React + TypeScript + Vite setup that focuses on a full-height hero, glassy header, GSAP-powered typography, and a responsive light/dark theme toggle.
+A learning-focused hero section inspired by the Uzair Khan sketch. Built with the Next.js 14 App Router, TypeScript, Tailwind CSS, GSAP, and a Lottie-powered theme toggle.
 
 ## Tech Stack
-- **React 18 + TypeScript** rendered through Vite for instant feedback.
-- **Vite** dev server/bundler for a zero-config DX.
-- **GSAP** for the staggered entrance timeline, looping wave motion, and pointer-reactive glow.
-- **Modern CSS** (custom properties + clamp + backdrop blur) to deliver the clean look without relying on utility frameworks.
+- **Next.js 14 App Router** for streaming server components and file-based routing inside `src/app`.
+- **TypeScript** for end-to-end type safety.
+- **Tailwind CSS** for utility-first styling.
+- **GSAP + ScrollTrigger** for the requested load + parallax animations.
+- **Lottie-react + next-themes** for the animated light/dark mode switch.
 
-## Project Structure
+## File/Folder Overview
 ```
-├── index.html              # Vite entry
 ├── src
-│   ├── App.tsx             # Layout shell with header + hero
-│   ├── main.tsx            # React root render
+│   ├── app
+│   │   ├── layout.tsx      // Root layout (Server Component)
+│   │   ├── page.tsx        // Hero route (Server Component)
+│   │   └── globals.css     // Tailwind layers + custom utilities
 │   ├── components
-│   │   ├── Header.tsx      # Sticky navigation, nav pills, CTA, theme toggle
-│   │   ├── Hero.tsx        # Full-height hero + GSAP animations
-│   │   └── ThemeToggle.tsx # Emoji-based toggle wired to the theme hook
-│   ├── hooks
-│   │   └── useTheme.ts     # Persists theme + syncs with prefers-color-scheme
-│   └── styles
-│       ├── app.css         # Component-level styling for header + hero
-│       └── index.css       # Global tokens, resets, typography
-├── package.json            # Scripts + deps
-├── tsconfig*.json          # TypeScript configs for app + build tools
-└── vite.config.ts          # Vite + React plugin
+│   │   ├── header          // Sticky navigation bar
+│   │   ├── hero            // Hero section with GSAP animations
+│   │   ├── theme           // Theme toggle + Lottie animation
+│   │   ├── providers       // Next-themes provider wrapper
+│   │   └── ui              // Reusable UI helpers (magnetic button)
+│   ├── data                // Lottie JSON data
+│   └── hooks               // Custom hooks (e.g., magnetic hover)
+├── public                  // Static assets (placeholders)
+├── tailwind.config.ts      // Tailwind setup pointing at src/**/*
+├── postcss.config.mjs      // PostCSS pipeline
+├── tsconfig.json           // TypeScript compiler configuration
+└── next.config.mjs         // Next.js configuration
 ```
 
-## Key Implementation Notes
-- **Full viewport hero:** `.hero` uses `min-height: 100vh` with generous padding and a blurred glass container so the first screen feels immersive on any device.
-- **Theme system:** `useTheme` stores the current theme in `localStorage`, respects the user’s OS preference on first load, and writes a `data-theme` attribute to `<html>` so CSS variables update instantly.
-- **GSAP animation flow:** `Hero.tsx` builds a timeline inside `useLayoutEffect` to stagger the header, hero letters, and metadata. A separate looping tween keeps each letter gently bobbing, and a pointer listener drives the glowing orb for subtle parallax.
-- **Type safety:** Components are typed by default, hooks expose explicit return shapes, and the TypeScript compiler (via `npm run lint`) ensures there are no implicit `any`s.
+### Server vs. Client Components
+- **`src/app/layout.tsx` & `src/app/page.tsx`** render on the server (no `use client` directive). They handle metadata, fonts, and streaming shell markup.
+- **Interactive pieces** such as the header, hero animations, theme toggle, and magnetic button opt into the Client Component model via the `'use client'` directive. They rely on React hooks (`useEffect`, `useRef`, `useState`) and browser-only APIs (GSAP DOM measurements, matchMedia, etc.).
 
-## Available Scripts
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start Vite in development mode. |
-| `npm run build` | Type-check via `tsc -b` then bundle the site. |
-| `npm run preview` | Preview the production build locally. |
-| `npm run lint` | Run TypeScript in no-emit mode for fast type-checking. |
+### Component Organization
+| Component | Type | Responsibility |
+|-----------|------|----------------|
+| `Header` | Client | Sticky navigation, nav pills, CTA, magnetic hover, header entrance animation. |
+| `Hero` | Client | Displays the giant name, supporting text, GSAP load/parallax animations. |
+| `ThemeToggle` | Client | Connects `next-themes` to a Lottie animation for the sun/moon transition. |
+| `MagneticButton` | Client | Higher-order component that applies the GSAP-based cursor attraction effect. |
 
-> **Note:** Installing dependencies may fail in this execution environment because external network calls to npm are blocked. The project is otherwise ready for a standard `npm install` on your machine.
+### GSAP Usage
+- **Setup:** `gsap.registerPlugin(ScrollTrigger)` occurs inside `useEffect` to ensure code only runs in the browser.
+- **Page load timeline:** Hero letters animate via `gsap.timeline` with staggered `yPercent` reveals followed by the supporting captions.
+- **Scroll-triggered parallax:** `ScrollTrigger` translates the hero container based on scroll position for the soft drift effect.
+- **Magnetic cursor:** The `useMagneticHover` hook measures pointer deltas and feeds them to `gsap.to` for subtle button translations.
 
-### Zero-install visual preview
-If you just want to see the hero before touching the React/Vite toolchain, open [`preview.html`](./preview.html) directly in your browser. The file now links to the exact same CSS bundles (`src/styles/index.css` + `src/styles/app.css`) that the Vite app consumes and reuses the identical markup/GSAP timeline, so the standalone preview looks 1:1 with `npm run dev`.
+### Custom Hooks
+- `useMagneticHover` centralizes the GSAP-powered hover logic so any CTA can become "magnetic" simply by wrapping it in `<MagneticButton>`.
 
-## Customization Tips
-- Update the nav labels or CTA text directly inside `Header.tsx`.
-- Swap fonts or tweak the typography scale inside `src/styles/index.css` and `src/styles/app.css`.
-- Extend the hero timeline in `Hero.tsx` with extra GSAP effects (e.g., SplitText, ScrollTrigger) if you need more complex sequences.
+### Theme Toggle & Lottie
+- The `ThemeProvider` (in `components/providers`) uses `next-themes` to switch Tailwind's `class` strategy between `light` and `dark`.
+- `ThemeToggle` holds a `LottieRefCurrentProps` ref to scrub through `themeToggleAnimation`. The animation plays forward when enabling dark mode and reverses for light mode.
+
+## Running the Project
+```bash
+npm install
+npm run dev
+```
+> **Note:** If your environment restricts access to npm, install packages from a mirror or add them manually to a local registry. The codebase itself is ready for a standard `npm install`.
+
+## Learning Notes
+1. **`use client`** is mandatory whenever a component relies on hooks or browser-only libraries such as GSAP or Lottie.
+2. **TypeScript types** (e.g., literal `as const` nav arrays, exported animation types) help ensure props remain typed even across dynamic animations.
+3. **GSAP in Next.js** should live inside `useEffect`/`useLayoutEffect` with `gsap.context` so animations clean up when components unmount.
+4. **App Router file structure** keeps route segments in `src/app`. Nested folders would create additional routes (`app/(marketing)/page.tsx`, etc.) and layouts.
+5. **Tailwind + CSS variables** allow the background gradients + glassmorphism styles to react instantly to theme changes.
+
+## Screenshot / Preview
+Run `npm run dev`, visit `http://localhost:3000`, and you will see the animated hero that matches the provided sketch but with modernized typography and interactions.
