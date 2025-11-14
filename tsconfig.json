@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "strict": true,
+    "baseUrl": ".",
+    "rootDir": "src",
+    "outDir": "dist/assets",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "@minireact",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"],
+      "@minireact": ["src/lib/minireact/index"],
+      "@minireact/*": ["src/lib/minireact/*"],
+      "gsap": ["src/vendor/gsap"],
+      "lottie-react": ["src/vendor/lottie-react"],
+      "@assets/*": ["src/assets/*"],
+      "@animations/*": ["src/assets/animations/*"]
+    }
+  },
+  "include": ["src", "scripts"],
+  "exclude": ["dist", "node_modules"]
+}

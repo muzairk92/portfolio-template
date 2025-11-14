@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Uzair Khan — Portfolio Preview</title>
+    <meta
+      name="description"
+      content="GSAP-powered hero built with a lightweight React + TypeScript setup for Uzair Khan's portfolio."
+    />
+    <link rel="stylesheet" href="./assets/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      // Apply stored theme before the UI paints to avoid flashes between light/dark.
+      const storedTheme = window.localStorage.getItem("uzair-theme");
+      if (storedTheme) {
+        document.documentElement.dataset.theme = storedTheme;
+      }
+    </script>
+  </head>
+  <body class="min-h-screen bg-surface text-ink">
+    <div id="root"></div>
+    <script type="module" src="./assets/main.js"></script>
+  </body>
+</html>

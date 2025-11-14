@@ -1,0 +1,9 @@
+{
+  "name": "orbitBadge",
+  "duration": 360,
+  "frames": [
+    { "radius": 16, "strokeWidth": 2.4, "alpha": 0.3, "color": "#0f172a" },
+    { "radius": 22, "strokeWidth": 2, "alpha": 0.45, "color": "#2563eb" },
+    { "radius": 28, "strokeWidth": 1.6, "alpha": 0.35, "color": "#14b8a6" }
+  ]
+}
