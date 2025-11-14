@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Uzair Khan — Portfolio Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f8f6f1;
+        --bg-muted: #ece6de;
+        --text: #050505;
+        --text-muted: rgba(5, 5, 5, 0.6);
+        --accent: #111111;
+        --pill-bg: rgba(255, 255, 255, 0.7);
+        --pill-border: rgba(5, 5, 5, 0.08);
+        --cta-shadow: 0 15px 40px rgba(17, 17, 17, 0.25);
+      }
+
+      :root[data-theme='dark'] {
+        --bg: #050509;
+        --bg-muted: #11111a;
+        --text: #f6f3ea;
+        --text-muted: rgba(246, 243, 234, 0.6);
+        --accent: #f9d45c;
+        --pill-bg: rgba(255, 255, 255, 0.08);
+        --pill-border: rgba(255, 255, 255, 0.1);
+        --cta-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system,
+          BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        transition: background 0.6s ease, color 0.6s ease;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .app-shell {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem clamp(1.5rem, 4vw, 4rem);
+        backdrop-filter: blur(14px);
+        background: color-mix(in lab, var(--bg) 75%, transparent);
+        border-bottom: 1px solid var(--pill-border);
+      }
+
+      .logo-pill {
+        padding: 0.5rem 1.25rem;
+        border-radius: 999px;
+        border: 1px solid var(--pill-border);
+        background: var(--pill-bg);
+        font-weight: 600;
+      }
+
+      .nav-pill-group {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .nav-pill {
+        border-radius: 999px;
+        padding: 0.45rem 1.25rem;
+        border: 1px solid var(--pill-border);
+        background: var(--pill-bg);
+        font-size: 0.95rem;
+        color: var(--text);
+        transition: transform 0.4s ease, background 0.4s ease, color 0.4s ease;
+      }
+
+      .nav-pill:hover {
+        transform: translateY(-2px);
+        background: var(--accent);
+        color: var(--bg);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .theme-toggle {
+        border-radius: 999px;
+        border: 1px solid var(--pill-border);
+        background: var(--pill-bg);
+        padding: 0.35rem 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        cursor: pointer;
+        transition: background 0.4s ease, transform 0.3s ease;
+      }
+
+      .theme-toggle:hover {
+        transform: translateY(-2px);
+      }
+
+      .theme-toggle__icon {
+        font-size: 1rem;
+      }
+
+      .theme-toggle__label {
+        font-size: 0.85rem;
+      }
+
+      .cta-button {
+        border: none;
+        border-radius: 999px;
+        padding: 0.75rem 1.75rem;
+        font-weight: 600;
+        color: var(--bg);
+        background: linear-gradient(120deg, #111, #6d28d9, #111);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        box-shadow: var(--cta-shadow);
+      }
+
+      .cta-button::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at top,
+          rgba(255, 255, 255, 0.5),
+          transparent 60%
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px) scale(1.02);
+      }
+
+      .cta-button:hover::after {
+        opacity: 0.7;
+      }
+
+      .hero {
+        position: relative;
+        min-height: 100vh;
+        padding: clamp(2rem, 10vw, 6rem) clamp(1.5rem, 6vw, 6rem) 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at top right,
+            rgba(109, 40, 217, 0.35),
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at bottom left,
+            rgba(17, 17, 17, 0.25),
+            transparent 55%
+          );
+        pointer-events: none;
+      }
+
+      .hero-glow {
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.6),
+          transparent 70%
+        );
+        filter: blur(20px);
+        opacity: 0.8;
+        pointer-events: none;
+        transition: transform 0.6s ease;
+      }
+
+      .hero-content {
+        position: relative;
+        width: min(1200px, 100%);
+        border-radius: 32px;
+        padding: clamp(2rem, 6vw, 4rem);
+        border: 1px solid var(--pill-border);
+        background: color-mix(in srgb, var(--bg) 70%, transparent);
+        backdrop-filter: blur(25px);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: auto;
+        row-gap: 2rem;
+      }
+
+      .hero-name {
+        font-size: clamp(3.5rem, 15vw, 11rem);
+        font-weight: 700;
+        line-height: 0.95;
+        display: flex;
+        flex-wrap: wrap;
+        letter-spacing: 0.08em;
+        color: #000;
+        text-transform: uppercase;
+      }
+
+      :root[data-theme='dark'] .hero-name {
+        color: #fefefe;
+      }
+
+      .hero-letter {
+        display: inline-block;
+        padding-right: 0.12em;
+      }
+
+      .hero-meta {
+        font-size: 1rem;
+        color: var(--text-muted);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .hero-meta__left {
+        justify-self: flex-start;
+      }
+
+      .hero-meta__right {
+        justify-self: flex-end;
+      }
+
+      @media (max-width: 900px) {
+        .site-header {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .nav-pill-group {
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .header-actions {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .hero-content {
+          padding: 2.5rem;
+        }
+
+        .hero-meta__right {
+          justify-self: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="site-header">
+        <div class="logo-pill">Uzair.</div>
+        <nav class="nav-pill-group" aria-label="Primary">
+          <a class="nav-pill" href="#">Home</a>
+          <a class="nav-pill" href="#">About Me</a>
+          <a class="nav-pill" href="#">Works</a>
+          <a class="nav-pill" href="#">Blog</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" aria-label="Toggle theme">
+            <span class="theme-toggle__icon" aria-hidden>🌞</span>
+            <span class="theme-toggle__label">Light</span>
+          </button>
+          <button class="cta-button" type="button">Schedule a Call</button>
+        </div>
+      </header>
+      <main>
+        <section class="hero">
+          <div class="hero-glow" aria-hidden="true"></div>
+          <div class="hero-content">
+            <div class="hero-grid">
+              <p class="hero-meta hero-meta__left">Since 2014</p>
+              <div class="hero-name" aria-label="Uzair Khan">
+                <span class="hero-letter">U</span>
+                <span class="hero-letter">Z</span>
+                <span class="hero-letter">A</span>
+                <span class="hero-letter">I</span>
+                <span class="hero-letter">R</span>
+                <span class="hero-letter">&nbsp;</span>
+                <span class="hero-letter">K</span>
+                <span class="hero-letter">H</span>
+                <span class="hero-letter">A</span>
+                <span class="hero-letter">N</span>
+              </div>
+              <p class="hero-meta hero-meta__right">
+                UI/UX Designer and Web Developer
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script>
+      const root = document.documentElement;
+      const toggle = document.querySelector('.theme-toggle');
+      const toggleIcon = document.querySelector('.theme-toggle__icon');
+      const toggleLabel = document.querySelector('.theme-toggle__label');
+      const themeKey = 'preview-theme';
+
+      const savedTheme = window.localStorage.getItem(themeKey);
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        root.dataset.theme = savedTheme;
+        toggleIcon.textContent = savedTheme === 'light' ? '🌞' : '🌙';
+        toggleLabel.textContent = savedTheme === 'light' ? 'Light' : 'Dark';
+      }
+
+      toggle?.addEventListener('click', () => {
+        const nextTheme = root.dataset.theme === 'light' ? 'dark' : 'light';
+        root.dataset.theme = nextTheme;
+        toggleIcon.textContent = nextTheme === 'light' ? '🌞' : '🌙';
+        toggleLabel.textContent = nextTheme === 'light' ? 'Light' : 'Dark';
+        window.localStorage.setItem(themeKey, nextTheme);
+      });
+
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      tl.from('.site-header', {
+        y: -40,
+        opacity: 0,
+        duration: 0.8,
+      });
+      tl.from(
+        '.hero-letter',
+        {
+          yPercent: 120,
+          opacity: 0,
+          stagger: 0.08,
+          duration: 1.2,
+        },
+        '-=0.3'
+      );
+      tl.from(
+        '.hero-meta',
+        {
+          opacity: 0,
+          y: 20,
+          stagger: 0.15,
+          duration: 0.8,
+        },
+        '-=0.4'
+      );
+
+      gsap.to('.hero-letter', {
+        yPercent: 6,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        duration: 2.6,
+        stagger: {
+          each: 0.1,
+          from: 'random',
+        },
+      });
+
+      const hero = document.querySelector('.hero');
+      const glow = document.querySelector('.hero-glow');
+      hero?.addEventListener('mousemove', (event) => {
+        const bounds = hero.getBoundingClientRect();
+        const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+        const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+        gsap.to(glow, {
+          x: x * 40,
+          y: y * 40,
+          duration: 0.6,
+        });
+      });
+    </script>
+  </body>
+</html>
