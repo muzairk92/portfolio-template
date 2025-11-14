@@ -50,4 +50,20 @@ body::before {
   background-size: 6px 6px;
   mix-blend-mode: soft-light;
   opacity: 0.6;
+  background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.08) 1px, transparent 0);
+  background-size: 80px 80px;
+}
+
+.dark body {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
+}
+
+.hero-gradient {
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(255,255,255,0.18), transparent 35%),
+    linear-gradient(135deg, rgba(67,56,202,0.35), rgba(14,116,144,0.45));
+}
+
+.glass-panel {
+  @apply bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 backdrop-blur-lg;
 }
