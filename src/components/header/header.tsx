@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import clsx from "clsx";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -34,30 +35,35 @@ export function Header() {
   return (
     <header
       ref={headerRef}
-      className="sticky top-6 z-30 mx-auto mb-12 flex w-full max-w-6xl items-center justify-between rounded-full border border-white/25 bg-white/80 px-5 py-4 text-xs font-semibold uppercase tracking-[0.35em] text-slate-700 shadow-[0_25px_65px_rgba(15,23,42,0.2)] backdrop-blur-2xl transition-all dark:border-white/5 dark:bg-slate-900/70 dark:text-slate-200"
+      className="sticky top-4 z-20 mb-16 flex items-center justify-between rounded-full border border-white/15 bg-white/40 px-4 py-3 shadow-lg shadow-slate-900/5 backdrop-blur-xl transition-colors dark:border-white/10 dark:bg-white/10"
     >
-      <Link href="#home" className="flex items-center gap-3 text-slate-900 transition-colors dark:text-white">
-        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-slate-900 text-base font-black text-white shadow-lg shadow-slate-900/30 dark:bg-white dark:text-slate-900">
-          UZ
-        </span>
-        <span className="hidden text-[0.65rem] tracking-[0.4em] text-slate-600 dark:text-slate-200 sm:inline">
-          Portfolio
-        </span>
+      <Link href="#home" className="text-lg font-semibold tracking-[0.2em]">
+        UZ
       </Link>
 
-      <nav className="hidden items-center gap-3 md:flex">
+      <nav className="hidden gap-3 sm:flex">
         {navLinks.map((link) => (
-          <Link key={link.href} href={link.href} className="pill-link">
-            <span>{link.label}</span>
+          <Link
+            key={link.href}
+            href={link.href}
+            className={clsx(
+              "rounded-full border border-white/40 bg-white/70 px-4 py-1 text-sm font-medium text-slate-900 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg",
+              "dark:border-white/10 dark:bg-white/10 dark:text-white"
+            )}
+          >
+            {link.label}
           </Link>
         ))}
       </nav>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         <ThemeToggle />
-        <MagneticButton strength={0.55}>
-          <Link href="#contact" className="cta-button">
-            <span>Schedule a Call</span>
+        <MagneticButton asChild strength={0.4}>
+          <Link
+            href="#contact"
+            className="rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold uppercase tracking-wide text-white shadow-2xl shadow-slate-900/40 transition-all hover:shadow-slate-900/60 dark:bg-white dark:text-slate-900"
+          >
+            Schedule a Call
           </Link>
         </MagneticButton>
       </div>

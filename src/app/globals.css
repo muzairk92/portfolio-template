@@ -50,158 +50,20 @@ body::before {
   background-size: 6px 6px;
   mix-blend-mode: soft-light;
   opacity: 0.6;
+  background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.08) 1px, transparent 0);
+  background-size: 80px 80px;
 }
 
-@layer components {
-  .pill-link {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.45rem 1.35rem;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.45);
-    background: rgba(255, 255, 255, 0.85);
-    letter-spacing: 0.15em;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #0f172a;
-    transition: color 0.35s ease, transform 0.35s ease;
-    backdrop-filter: blur(30px);
-  }
-
-  .dark .pill-link {
-    border-color: rgba(255, 255, 255, 0.15);
-    background: rgba(15, 23, 42, 0.55);
-    color: #f8fafc;
-  }
-
-  .pill-link::after {
-    content: "";
-    position: absolute;
-    inset: -2px;
-    border-radius: inherit;
-    background: linear-gradient(120deg, rgba(255, 255, 255, 0.65), rgba(14, 165, 233, 0.65), rgba(244, 114, 182, 0.65));
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    z-index: -1;
-    filter: blur(10px);
-  }
-
-  .pill-link:hover,
-  .pill-link:focus-visible {
-    transform: translateY(-2px);
-  }
-
-  .pill-link:hover::after,
-  .pill-link:focus-visible::after {
-    opacity: 0.9;
-    animation: pillShimmer 1.5s linear infinite;
-  }
-
-  .pill-link span {
-    position: relative;
-    z-index: 1;
-  }
-
-  .cta-button {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.95rem 1.9rem;
-    border-radius: 999px;
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    color: #f8fafc;
-    background-image: linear-gradient(135deg, #0f172a, #1d4ed8 50%, #0ea5e9);
-    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.35);
-    overflow: hidden;
-    transition: transform 0.35s ease;
-  }
-
-  .cta-button::before {
-    content: "";
-    position: absolute;
-    inset: 3px;
-    border-radius: inherit;
-    background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.45), transparent 55%);
-    opacity: 0;
-    transition: opacity 0.35s ease;
-  }
-
-  .cta-button::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    border: 1px solid rgba(255, 255, 255, 0.35);
-    opacity: 0.7;
-    pointer-events: none;
-  }
-
-  .cta-button span {
-    position: relative;
-    z-index: 1;
-  }
-
-  .cta-button:hover,
-  .cta-button:focus-visible {
-    transform: translateY(-3px) scale(1.02);
-  }
-
-  .cta-button:hover::before,
-  .cta-button:focus-visible::before {
-    opacity: 1;
-  }
-
-  .cta-button:focus-visible {
-    outline: 2px solid rgba(14, 165, 233, 0.45);
-    outline-offset: 4px;
-  }
-
-  .hero-letter {
-    position: relative;
-    display: inline-block;
-    text-shadow: 0 18px 45px rgba(15, 23, 42, 0.35);
-  }
-
-  .hero-letter::after {
-    content: "";
-    position: absolute;
-    inset: -5% -20%;
-    background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.7) 50%, transparent 100%);
-    opacity: 0.25;
-    mix-blend-mode: screen;
-    animation: heroGloss 3.8s ease-in-out infinite;
-  }
+.dark body {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.05) 1px, transparent 0);
 }
 
-@keyframes pillShimmer {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
+.hero-gradient {
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.25), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(255,255,255,0.18), transparent 35%),
+    linear-gradient(135deg, rgba(67,56,202,0.35), rgba(14,116,144,0.45));
 }
 
-@keyframes heroGloss {
-  0% {
-    transform: translateX(-120%);
-    opacity: 0;
-  }
-  35% {
-    opacity: 0.35;
-  }
-  70% {
-    opacity: 0.15;
-  }
-  100% {
-    transform: translateX(120%);
-    opacity: 0;
-  }
+.glass-panel {
+  @apply bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 backdrop-blur-lg;
 }
